@@ -1,7 +1,12 @@
-# Projeto Kanban!
-content = """# API Kanban
+# Projeto Kanban API!
+ Projeto Spring Boot para controle de tarefas em estilo Kanban, com:
 
-Projeto Spring Boot para controle de tarefas em estilo Kanban, com documentação Swagger, validação via Bean Validation e persistência em PostgreSQL.
+documentação interativa via Swagger
+
+validação de dados com Bean Validation
+
+persistência de dados com PostgreSQL
+
 
 ---
 
@@ -38,6 +43,7 @@ Esta API RESTful foi desenvolvida em Spring Boot para gerenciar tarefas em um qu
 - Validação de dados via Bean Validation  
 - Conversão automática entre entidades e DTOs com ModelMapper  
 - Documentação interativa com Swagger  
+- Tratamento global de erros com @ControllerAdvice para respostas padronizadas em caso de falhas (como validação e recursos não encontrados)
 
 ---
 
