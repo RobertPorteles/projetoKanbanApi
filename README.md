@@ -1,4 +1,4 @@
-# Criar o arquivo README.md com o conteúdo preparado
+# Projeto Kanban!
 content = """# API Kanban
 
 Projeto Spring Boot para controle de tarefas em estilo Kanban, com documentação Swagger, validação via Bean Validation e persistência em PostgreSQL.
