@@ -1,263 +1,188 @@
-# Projeto Kanban API!
- Projeto Spring Boot para controle de tarefas em estilo Kanban, com:
 
-documentação interativa via Swagger
+# Projeto API de Kanban
 
-validação de dados com Bean Validation
+Este é um projeto de API REST para gerenciamento de tarefas Kanban, desenvolvido com Spring Boot, PostgreSQL e documentação automatizada com Swagger.
 
-persistência de dados com PostgreSQL
+## ✨ Tecnologias Utilizadas
 
-
----
-
-## Índice
-
-1. [Visão Geral](#visão-geral)  
-2. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
-3. [Pré-requisitos](#pré-requisitos)  
-4. [Estrutura de Pastas](#estrutura-de-pastas)  
-5. [Configuração do Banco de Dados com Docker](#configuração-do-banco-de-dados-com-docker)  
-6. [Configuração do `application.properties`](#configuração-do-applicationproperties)  
-7. [Entidade JPA: TarefaKanban](#entidade-jpa-tarefakanban)  
-8. [Repositório: TarefaKanbanRepository](#repositório-tarefakanbanrepository)  
-9. [DTOs](#dtos)  
-   - `TarefaKanbanRequestDto`  
-   - `TarefaKanbanResponseDto`  
-10. [Validação Bean Validation](#validação-bean-validation)  
-11. [ModelMapper](#modelmapper)  
-12. [Swagger / OpenAPI](#swagger--openapi)  
-13. [Controller: TarefasKanbanController](#controller-tarefaskanbancontroller)  
-   - Endpoints: `POST`, `PUT`, `DELETE`, `GET`  
-14. [Tratamento Global de Exceções](#tratamento-global-de-exceções)  
-15. [Como Rodar o Projeto](#como-rodar-o-projeto)  
-16. [Testes com Postman](#testes-com-postman)  
-17. [Publicação no GitHub](#publicação-no-github)  
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
+</p>
 
 ---
 
-## Visão Geral
+## 🚀 Funcionalidades da API
 
-Esta API RESTful foi desenvolvida em Spring Boot para gerenciar tarefas em um quadro Kanban. Cada tarefa possui campos como título, descrição, responsável, datas de criação e de entrega, além de indicadores de início e conclusão. O projeto inclui:
-
-- Persistência em PostgreSQL  
-- Validação de dados via Bean Validation  
-- Conversão automática entre entidades e DTOs com ModelMapper  
-- Documentação interativa com Swagger  
-- Tratamento global de erros com @ControllerAdvice para respostas padronizadas em caso de falhas (como validação e recursos não encontrados)
-
----
-
-## Tecnologias Utilizadas
-
-- Java 21  
-- Spring Boot (Spring Web, Spring Data JPA, Bean Validation, DevTools)  
-- Maven  
-- PostgreSQL (rodando em Docker)  
-- Lombok  
-- ModelMapper  
-- SpringDoc OpenAPI (Swagger UI)  
+- Cadastro de tarefas
+- Consulta de tarefas
+- Atualização de tarefas
+- Remoção de tarefas
+- Validação de dados (título, descrição, responsável, data prevista, status)
+- Documentação interativa com Swagger UI
+- Configuração de banco de dados PostgreSQL com JPA
 
 ---
 
-## Pré-requisitos
+## 🗂️ Estrutura do Projeto
 
-- Java 21 instalado  
-- Maven instalado  
-- Docker (para rodar o banco PostgreSQL)  
-- Conta no GitHub (para clonar ou publicar o repositório)  
-
----
-
-## Estrutura de Pastas
-
-\`\`\`
-projetoKanbanApi/
-├─ src/
-│  ├─ main/
-│  │  ├─ java/
-│  │  │  └─ br.com.kanbanboard/
-│  │  │     ├─ controllers/        
-│  │  │     ├─ configurations/     
-│  │  │     ├─ dtos/               
-│  │  │     ├─ entities/           
-│  │  │     ├─ handlers/           
-│  │  │     └─ repositories/       
-│  │  └─ resources/
-│  │     ├─ application.properties 
-│  │     └─ ...
-│  └─ test/                         
-├─ docker-compose.yml              
-└─ pom.xml                         
-\`\`\`
+```
+src/main/java/br/com/kanbanapi
+├── controllers
+├── dtos
+├── entities
+├── interfaces
+├── services
+├── configurations
+└── handlers
+```
 
 ---
 
-## Configuração do Banco de Dados com Docker
+## ⚙️ Executando o Projeto
 
-1. Crie um arquivo \`docker-compose.yml\` contendo a definição de um serviço PostgreSQL que inclui:
-   - Imagem do PostgreSQL  
-   - Mapeamento de porta  
-   - Variáveis de ambiente para nome do banco, usuário e senha  
-   - Volume dedicado para persistência de dados  
-   - Política de reinício  
+### 1️⃣ Pré-requisitos
 
-2. Execute o comando \`docker-compose up -d\` para iniciar o container.  
-3. Verifique se o serviço está ativo usando \`docker ps\`.  
-4. (Opcional) Conecte-se via ferramenta de sua preferência ou linha de comando, usando as credenciais definidas.  
+- Java 17+ instalado
+- Maven instalado
+- Docker instalado (para usar o docker-compose com PostgreSQL)
 
----
+### 2️⃣ Clone o projeto
 
-## Configuração do \`application.properties\`
+```bash
+git clone https://github.com/seu-usuario/projetoKanbanApi.git
+cd projetoKanbanApi
+```
 
-Localizado em \`src/main/resources\`, esse arquivo deve conter:
+### 3️⃣ Configure o `application.properties` (já vem configurado)
 
-- A porta em que o Spring Boot será executado (8084).  
-- A URL de conexão com o PostgreSQL (hostname, porta, nome do banco).  
-- Usuário e senha do banco.  
-- Dialeto do Hibernate para PostgreSQL e estratégia de geração de esquema.  
-- Habilitação de exibição de SQL no console.  
-- (Opcional) Ajustes de caminhos para o Swagger UI e o endpoint \`/v3/api-docs\`.
+```properties
+server.port=8080
 
----
+spring.datasource.url=jdbc:postgresql://localhost:8084/kanban
+spring.datasource.username=kanban_user
+spring.datasource.password=kanban_pass
 
-## Entidade JPA: TarefaKanban
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
 
-A classe \`TarefaKanban\` representa a tabela \`tarefa_kanban\` e possui campos para:
+### 4️⃣ Suba o banco de dados com Docker
 
-- UUID autogerado como identificador  
-- Título, descrição e responsável (strings com tamanhos definidos)  
-- Data de criação (definida pelo servidor)  
-- Data prevista de entrega  
-- Banderas booleanas de iniciado e finalizado  
+```bash
+docker-compose up -d
+```
 
-Cada campo é mapeado como coluna no banco usando anotações JPA, garantindo que o Hibernate consiga criar/atualizar a tabela automaticamente.
+### 5️⃣ Execute a aplicação
 
----
+```bash
+./mvnw spring-boot:run
+```
 
-## Repositório: TarefaKanbanRepository
+ou
 
-Uma interface que estende \`JpaRepository<TarefaKanban, UUID>\`, disponibilizando métodos prontos para:
-
-- Salvar ou atualizar entidades  
-- Buscar por ID  
-- Listar todas as entidades  
-- Deletar por ID  
+```bash
+mvn spring-boot:run
+```
 
 ---
 
-## DTOs
+## 🖥️ Acessando a API
 
-### TarefaKanbanRequestDto
+- API Base URL:
 
-- Campos: título, descrição, responsável, dataPrevistaEntrega, iniciado, finalizado.  
-- Anotações de Bean Validation garantem:  
-  - Título: não vazio, entre 8 e 50 caracteres.  
-  - Descrição: não vazia, entre 8 e 150 caracteres.  
-  - Responsável: não vazio, entre 8 e 25 caracteres.  
-  - DataPrevistaEntrega: string no formato \`YYYY-MM-DD\`.  
-  - Iniciado e Finalizado: não nulos.
+```
+http://localhost:8080/api/v1/tarefas
+```
 
-### TarefaKanbanResponseDto
+- Swagger UI:
 
-- Campos: id, título, descrição, responsável, dataCriacao, dataPrevistaEntrega, iniciado, finalizado.  
-- Datas formatadas em ISO8601 (com padrão UTC) usando anotações do Jackson.
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ---
 
-## Validação Bean Validation
+## 📚 Exemplos de Endpoints
 
-- O projeto inclui a dependência de Bean Validation do Spring Boot.  
-- As anotações em \`TarefaKanbanRequestDto\` garantem que qualquer requisição que não cumpra os requisitos gere um erro **400 BAD REQUEST** contendo detalhes sobre quais campos falharam.
+### POST /api/v1/tarefas
 
----
+```json
+{
+  "titulo": "Implementar autenticação",
+  "descricao": "Adicionar autenticação com JWT",
+  "responsavel": "Ana Souza",
+  "dataPrevistaEntrega": "2025-07-10",
+  "iniciado": true,
+  "finalizado": false
+}
+```
 
-## ModelMapper
+### GET /api/v1/tarefas
 
-- Um bean \`ModelMapper\` é configurado via classe de configuração.  
-- Permite converter automaticamente:
-  - \`TarefaKanbanRequestDto\` → \`TarefaKanban\`  
-  - \`TarefaKanban\` → \`TarefaKanbanResponseDto\`  
+Lista todas as tarefas.
 
-Isso evita cópias manuais de cada campo no controller.
+### GET /api/v1/tarefas/{id}
 
----
+Consulta uma tarefa pelo ID.
 
-## Swagger / OpenAPI
+### PUT /api/v1/tarefas/{id}
 
-- A dependência SpringDoc OpenAPI fornece Swagger UI.  
-- Por padrão, ao iniciar a aplicação, a documentação estará disponível em:
-  \`\`\`
-  http://localhost:8084/swagger-ui.html
-  \`\`\`
-- É possível customizar título, versão e descrição da API criando uma classe de configuração com bean \`OpenAPI\`, mas isso é opcional.
+Atualiza os dados de uma tarefa.
 
----
+### DELETE /api/v1/tarefas/{id}
 
-## Controller: TarefasKanbanController
-
-Localizada em \`controllers\`, essa classe:
-
-1. Injeta o repositório e o \`ModelMapper\` via constructor injection.  
-2. Define as seguintes rotas:
-
-   - **POST /api/v1/kanban/tarefas**  
-     - Recebe \`TarefaKanbanRequestDto\`.  
-     - Valida entradas.  
-     - Converte DTO em entidade, define data de criação e persiste.  
-     - Retorna \`TarefaKanbanResponseDto\` com **200 OK**.
-
-   - **PUT  /api/v1/kanban/tarefas/{id}**  
-     - Atualiza tarefa existente. Retorna **200 OK** ou **404 Not Found**.
-
-   - **DELETE /api/v1/kanban/tarefas/{id}**  
-     - Remove tarefa. Retorna **204 No Content** ou **404 Not Found**.
-
-   - **GET /api/v1/kanban/tarefas**  
-     - Lista todas as tarefas. Retorna **200 OK** + lista de DTOs.
+Remove uma tarefa.
 
 ---
 
-## Tratamento Global de Exceções
+## ✅ Validações de Dados
 
-A classe \`GlobalExceptionHandler\` captura falhas de validação (\`MethodArgumentNotValidException\`) e retorna um JSON padronizado com \`campo: mensagem\` além do status **400 BAD REQUEST**.
-
----
-
-## Como Rodar o Projeto
-
-1. **Clonar ou baixar o repositório**.  
-2. **Iniciar o PostgreSQL** via Docker:
-   - Executar \`docker-compose up -d\` na raiz do projeto.  
-3. **Configurar credenciais** (usuário/senha/porta) no \`application.properties\`, se necessário.  
-4. **Compilar e rodar a aplicação**:
-   - \`mvn clean install\`  
-   - \`mvn spring-boot:run\`  
-5. **Acessar a API** em \`http://localhost:8084\`.  
-6. **Abrir o Swagger UI** em \`http://localhost:8084/swagger-ui.html\`.
+- `titulo`: obrigatório, mínimo de 8 e máximo de 50 caracteres.
+- `descricao`: obrigatório, mínimo de 8 e máximo de 150 caracteres.
+- `responsavel`: obrigatório, mínimo de 8 e máximo de 25 caracteres.
+- `dataPrevistaEntrega`: obrigatório, formato `YYYY-MM-DD`.
+- `iniciado`: obrigatório (booleano).
+- `finalizado`: obrigatório (booleano).
 
 ---
 
-## Testes com Postman
+## 📄 Licença
 
-- Importe a especificação OpenAPI (JSON em \`/v3/api-docs\`).  
-- Teste cada endpoint:  
-  1. **POST**: criar tarefa.  
-  2. **GET**: listar tarefas.  
-  3. **PUT**: editar tarefa.  
-  4. **DELETE**: excluir tarefa.  
-- Verifique códigos HTTP:
-  - **200 / 201** para sucesso.  
-  - **400** para dados inválidos.  
-  - **404** para não encontrado.  
-  - **204** para exclusão.
+Este projeto é de uso livre para fins de estudo e aprendizado.
 
 ---
 
-## Considerações Finais
+## 🙋‍♂️ Autor
 
-- Para este projeto foi Utilizado o Material da AULA 10 e 11 Da Coti Informatica - Professor Sérgio Mendes.
-- Feito por Robert Porteles
+Robert Porteles  
+[LinkedIn](https://www.linkedin.com/in/robert-porteles/)  
+[Email](mailto:robertporteless@gmail.com)
 
-"""
+---
 
+## 🔗 Referências
 
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)  
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)  
+- [SpringDoc OpenAPI](https://springdoc.org/)  
+- [Docker Documentation](https://docs.docker.com/)  
+
+---
+
+🚀 **Boas práticas**: Este projeto segue uma arquitetura RESTful com DTOs, camada de serviço e validação global de exceções.
+
+---
+
+## 📌 Observações
+
+Caso você deseje fazer deploy em produção, recomenda-se:
+
+- Configurar variáveis de ambiente para a conexão com PostgreSQL
+- Implementar autenticação/autorização (Spring Security + JWT)
+- Criar testes unitários e de integração
+
+---
