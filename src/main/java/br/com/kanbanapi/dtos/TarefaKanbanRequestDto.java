@@ -14,14 +14,14 @@ import lombok.Setter;
 public class TarefaKanbanRequestDto {
 
     @NotBlank(message = "O título é obrigatório")
-    @Size(max = 100, message = "O título não pode exceder 100 caracteres")
+    @Size(min =8, max = 50, message = "O título não pode exceder 50 e tem que ser maior que 8 caracteres")
     private String titulo;
 
-    @Size(max = 500, message = "A descrição não pode exceder 1000 caracteres")
+    @Size(min= 8, max = 150, message = "A descrição não pode exceder 150 e tem que ser maior que 8 caracteres")
     private String descricao;
 
     @NotBlank(message = "O responsável é obrigatório")
-    @Size(max = 30, message = "O nome do responsável não pode exceder 100 caracteres")
+    @Size(min =8, max = 25, message = "O nome do responsável não pode exceder 25 e tem que ser maior que 8 caracteres")
     private String responsavel;
 
     @NotNull(message = "A data prevista de entrega é obrigatória")

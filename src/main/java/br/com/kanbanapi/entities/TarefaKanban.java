@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -22,16 +24,16 @@ public class TarefaKanban {
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "titulo", nullable = false, length = 150)
+    @Column(name = "titulo", nullable = false, length = 50)
     private String titulo;
 
     // Renomeado para "descricao" sem acento:
-    @Column(name = "descricao", columnDefinition = "text")
+    @Column(name = "descricao", length = 150)
     private String descricao;
 
-    @Column(name = "responsavel", length = 100)
+    @Column(name = "responsavel", length = 25)
     private String responsavel;
-
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_criacao", nullable = false)
     private Date dataCriacao;
 

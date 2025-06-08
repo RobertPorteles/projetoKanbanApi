@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "60ec7bd6-3deb-4110-b5c8-c7cf581b03ff",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44767064",
+		"_collection_link": "https://robert-5803877.postman.co/workspace/Kanban~4f4cca60-d552-4609-9064-5817a35cce44/collection/44767064-60ec7bd6-3deb-4110-b5c8-c7cf581b03ff?action=share&source=collection_link&creator=44767064"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/tarefas/c5fd073a-8986-4f9c-81eb-873f0548f678",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/e92194be-e22a-47b3-be32-d11e854a8539",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"e92194be-e22a-47b3-be32-d11e854a8539"
+					]
+				},
+				"description": "Pesquisa por ID ! (Funcionando)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/tarefas/lote",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"titulo\": \"Implementar autenticação JWT\",\r\n    \"descricao\": \"Adicionar segurança usando token JWT na API.\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-10\",\r\n    \"iniciado\": true,\r\n    \"finalizado\": false\r\n  },\r\n  {\r\n    \"titulo\": \"Criar documentação com Swagger\",\r\n    \"descricao\": \"Expor endpoints da API usando OpenAPI 3.\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-11\",\r\n    \"iniciado\": true,\r\n    \"finalizado\": false\r\n  },\r\n  {\r\n    \"titulo\": \"Refatorar camada de serviço\",\r\n    \"descricao\": \"Melhorar separação de responsabilidades com SOLID.\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-12\",\r\n    \"iniciado\": false,\r\n    \"finalizado\": false\r\n  },\r\n  {\r\n    \"titulo\": \"Configurar CI/CD com GitHub Actions\",\r\n    \"descricao\": \"Automatizar testes e build no push para main.\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-13\",\r\n    \"iniciado\": false,\r\n    \"finalizado\": false\r\n  },\r\n  {\r\n    \"titulo\": \"Criar testes de integração\",\r\n    \"descricao\": \"Validar integração dos endpoints com banco de dados.\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-14\",\r\n    \"iniciado\": false,\r\n    \"finalizado\": false\r\n  }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/lote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"lote"
+					]
+				},
+				"description": "Criação em Lotes! Post (Funcionando)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/tarefas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Estudar Spring Boot\",\r\n    \"descricao\": \"Criar API REST\",\r\n    \"responsavel\": \"Robert Porteles\",\r\n    \"dataPrevistaEntrega\": \"2025-06-10T00:00:00.000+00:00\",\r\n    \"iniciado\": true,\r\n    \"finalizado\": false\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/criacao-unica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"criacao-unica"
+					]
+				},
+				"description": "Criação de Tarefa ! - Post - (Funcionando)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/tarefas/retorna-listas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/retorna-listas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"retorna-listas"
+					]
+				},
+				"description": "Retorna listas de tarefas! Get (funcionando)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/tarefas/4ec0dffe-a41a-43a9-8715-9b99d2b5a3f5",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Revisar Kanban\",\r\n  \"descricao\": \"Revisar todas as tarefas pendentes do quadro\",\r\n  \"responsavel\": \"Carlos Oliveira\",\r\n  \"dataPrevistaEntrega\": \"10/06/2025\",\r\n  \"iniciado\": false,\r\n  \"finalizado\": false\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/4ec0dffe-a41a-43a9-8715-9b99d2b5a3f5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"4ec0dffe-a41a-43a9-8715-9b99d2b5a3f5"
+					]
+				},
+				"description": "Atualização Put (funcionando)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/tarefas/e92194be-e22a-47b3-be32-d11e854a8539",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tarefas/e92194be-e22a-47b3-be32-d11e854a8539",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tarefas",
+						"e92194be-e22a-47b3-be32-d11e854a8539"
+					]
+				},
+				"description": "Delete (Funcionando)"
+			},
+			"response": []
+		}
+	]
+}
